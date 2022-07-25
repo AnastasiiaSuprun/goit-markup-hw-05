@@ -12,6 +12,7 @@
   --dark-bg-color: #2f303a;
 
   /* others */
+  --animation: 250ms ease-in-out;
 }
 
 body {
@@ -124,6 +125,7 @@ img {
   letter-spacing: 0.02em;
 
   color: var(--main-txt-cl);
+  transition: color var(--animation);
 }
 
 .header-link:hover,
@@ -132,7 +134,22 @@ img {
 }
 
 .header-link-current {
+  position: relative;
   color: var(--link-txt-cl);
+}
+
+.header-link-current::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+
+  border-radius: 2px;
+  background-color: var(--link-txt-cl);
 }
 .contacts-nav {
   display: flex;
@@ -147,6 +164,8 @@ img {
   line-height: 1.1;
   letter-spacing: 0.02em;
   color: #757575;
+
+  transition: color var(--animation);
 }
 
 .contacts-nav .item + .item {
@@ -230,6 +249,8 @@ img {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   cursor: pointer;
+
+  transition: background-color var(--animation);
 }
 .main-btn:hover,
 .main-btn:focus {
@@ -394,9 +415,12 @@ img {
 
   border: 1px solid #afb1b8;
   border-radius: 4px;
+
+  transition: border-color var(--animation);
 }
 .clients-icon {
   fill: #afb1b8;
+  transition: fill var(--animation);
 }
 
 .clients-link:hover,
@@ -490,6 +514,8 @@ img {
 
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
+
+  transition: background-color var(--animation);
 }
 .footer-icon {
   fill: #ffffff;
@@ -525,21 +551,23 @@ img {
   width: 44px;
   height: 44px;
 
+  color: #afb1b8;
   background-color: #ffffff;
   border-radius: 50%;
+
+  transition: background-color var(--animation);
 }
 
-.socials-link:hover,
-.socials-link:focus {
+.socials-icon {
+  fill: currentColor;
+  transition: fill var(--animation);
+}
+
+.socials-link:hover {
   background-color: var(--link-txt-cl);
 }
-
-.socials-link:hover,
-.socials-link:focus .socials-icon {
+.socials-link:hover .socials-icon {
   fill: #ffffff;
-}
-.socials-icon {
-  fill: #afb1b8;
 }
 
 /**
@@ -591,6 +619,8 @@ img {
   padding-right: 22px;
   padding-top: 6px;
   padding-bottom: 6px;
+
+  transition: background-color var(--animation);
 }
 .btn-project-current {
   color: #ffffff;
@@ -626,6 +656,7 @@ img {
   color: #ffffff;
   background-color: var(--link-txt-cl);
 }*/
+
 .about-project {
   display: flex;
   gap: 30px;
@@ -646,12 +677,49 @@ img {
 }
 .link-project {
   display: block;
+  transition: color var(--animation);
 }
 .link-project:hover,
 .link-project:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
+
+.project-thumb {
+  position: relative;
+  overflow: hidden;
+}
+.overlay-project {
+  position: absolute;
+  background-color: var(--link-txt-cl);
+  padding: 63px 24px;
+
+  transform: translateY(0);
+  transition: transform var(--animation);
+}
+.link-project:hover .overlay-project {
+  transform: translateY(-100%);
+}
+
+.overlay-project-text {
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+/*.card {
+  position: relative;
+  overflow: hidden;
+}
+*/
 
 .projects-item {
   font-weight: 700;
@@ -667,4 +735,61 @@ img {
   font-size: 16px;
   line-height: 1.9;
   color: var(--accent-txt-cl);
+}
+
+/**
+|===============================
+|Modal window
+|===============================
+*/
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
+
+  transition: opacity 250ms ease-out, visibility 250ms ease-out;
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1) rotate(0);
+
+  width: 528px;
+  height: 581px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
+    0px 2px 1px rgb(0 0 0 / 20%);
+}
+
+.modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
